@@ -1,7 +1,13 @@
 {
     "files.associations": {
         "ostream": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "vector": "cpp",
+        "xhash": "cpp",
+        "xiosbase": "cpp",
+        "xstring": "cpp",
+        "algorithm": "cpp",
+        "utility": "cpp"
     },
     "editor.cursorStyle": "line-thin"
 }

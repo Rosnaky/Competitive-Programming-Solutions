@@ -7,26 +7,50 @@ def makeNum(line):
     lastNumIndex = float("inf")
     firstNum = ""
     lastNum = ""
+
+    firstDigit = float("inf")
+    lastDigit = -1
+
+    for i in range(len(line)):
+        try:
+            int(line[i])
+            if firstDigit == float("inf"):
+                firstDigit = i
+            else:
+                lastDigit = i
+        except:
+            pass
+
     
     for v in nums:
         if line.find(v) != -1 and line.find(v) < firstNumIndex:
             firstNumIndex = line.find(v)
             firstNum = v
     
+    if firstNumIndex != float("inf") and firstNumIndex < firstDigit:
+        line = line.replace(firstNum, str(1+nums.index(firstNum)), 1)    
+    
+    for i in range(len(line)):
+        try:
+            int(line[i])
+            if firstDigit == float("inf"):
+                firstDigit = i
+            else:
+                lastDigit = i
+        except:
+            pass
+
     temp = line[::-1]
     for v in nums:
-        if temp.find(v[::-1]) != -1 and temp.find(v[::-1])+len(lastNum)-1 < lastNumIndex:
+        if temp.find(v[::-1]) != -1 and temp.find(v[::-1]) < lastNumIndex:
             lastNum = v
-            lastNumIndex = temp.find(v[::-1])+len(lastNum)-1
+            lastNumIndex = temp.find(v[::-1])
 
-    print(line, lastNum, lastNumIndex, line[::-1].find(lastNum[::-1])+len(lastNum)-1, end = " ")
-    if (line[::-1].find(lastNum[::-1]))+len(lastNum)-1 == lastNumIndex and lastNumIndex != -1 and lastNumIndex != float("inf"):
-        line = line.replace(lastNum, str(1+nums.index(lastNum)), 1)
+    if line[::-1].find(lastNum[::-1]) == lastNumIndex and lastNumIndex != float("inf") and len(line)-(lastNumIndex+len(lastNum)) > lastDigit:
+        line = line[::-1].replace(lastNum[::-1], str(1+nums.index(lastNum)), 1)
+        line = line[::-1]
 
-    if firstNumIndex != float("inf"):
-        line = line.replace(firstNum, str(1+nums.index(firstNum)), 1)
     
-    print(line)
     
     
     return line
@@ -60,5 +84,6 @@ for line in inp:
         ans += int(line[first]+line[last])
     elif first != -1:
         ans += int(line[first]*2)
+
 
 print(ans)
