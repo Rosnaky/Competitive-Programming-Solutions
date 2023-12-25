@@ -10,7 +10,8 @@
         "utility": "cpp",
         "xtree": "cpp",
         "queue": "cpp",
-        "ios": "cpp"
+        "ios": "cpp",
+        "unordered_map": "cpp"
     },
     "editor.cursorStyle": "line-thin"
 }
