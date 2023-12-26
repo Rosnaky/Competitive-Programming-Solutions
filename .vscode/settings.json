@@ -11,7 +11,10 @@
         "xtree": "cpp",
         "queue": "cpp",
         "ios": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "tuple": "cpp",
+        "cmath": "cpp",
+        "cstdlib": "cpp"
     },
     "editor.cursorStyle": "line-thin"
 }
