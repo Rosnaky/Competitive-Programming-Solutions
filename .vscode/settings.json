@@ -58,5 +58,6 @@
         "xstddef": "cpp",
         "xtr1common": "cpp"
     },
-    "editor.cursorStyle": "line-thin"
+    "editor.cursorStyle": "line-thin",
+    "C_Cpp.errorSquiggles": "disabled"
 }
