@@ -47,10 +47,10 @@ int main() {
         }
     }
 
-    for (auto row : grid) {
-        for (auto col : row) cout << col;
-        cout << endl;
-    }
+    // for (auto row : grid) {
+    //     for (auto col : row) cout << col;
+    //     cout << endl;
+    // }
 
     
     
