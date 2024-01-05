@@ -47,5 +47,5 @@ int main() {
 
     if (dfs(1, 1)) cout << "yes";
     else cout << "no";
-    
+    return 0;
 }
