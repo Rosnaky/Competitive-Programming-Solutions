@@ -46,7 +46,10 @@ void backtrack(vector<vector<int>>& grid, vector<vector<pair<int, int>>>& logos,
         }
         exit(0);
     }
-    if (index == 3) return;
+    else if (index == 3) {
+        cout << -1;
+        exit(0);
+    }
 
     // for (vector<int>& row : grid) {
     //     for (int col : row) {
@@ -70,10 +73,10 @@ void backtrack(vector<vector<int>>& grid, vector<vector<pair<int, int>>>& logos,
 
     for (pair<int, int>& logo: logos[index]) {
         int width = logo.first, height = logo.second;
-
+        bool valid = true;
         for (int i = 0; i <= length-height; i++) {
             for (int j = 0; j <= length-width; j++) {
-
+                if (grid[i][j] != -1) continue; 
                 if (fits(grid, width, height, i, j)) {
 
                     for (int k = i; k < i+height; k++) {
@@ -89,7 +92,10 @@ void backtrack(vector<vector<int>>& grid, vector<vector<pair<int, int>>>& logos,
                     }
 
                 }
+                valid = false;
+                break;
             }
+            if (!valid) break;
         }
     }
 }
