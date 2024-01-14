@@ -4,30 +4,34 @@
 
 using namespace std;
 #define mod int(1e9+7);
-
-int n;
-int target;
-
-
-int dp(int curr, int left) {
-    // cout << left << " " << target << endl;
-    if (curr == n && left == target) {
-        return 1;
-    }
-    if (curr == n) return 0;
-
-    curr++;
-    return (dp(curr, left+curr) + dp(curr, left))%mod;
-}
+typedef long long ll;
 
 int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
 
-    cin >> n;
-    target = n*(n+1)/4;
+    int n; cin >> n;
 
-    if (target*2 % 2 != 0) {cout << 0; return 0;}
+    int target = n*(n+1)/2;
 
-    cout << dp(1, 1);
+    if (target % 2 == 1) {
+        cout << 0; return 0;
+    }
+
+    target /= 2;
+
+    vector<vector<int>> dp(n, vector<int>(target+1, 0));
+    dp[0][0] = 1;
+
+    for (int i = 1; i < n; i++) {
+        for (int j = 0; j <= target; j++) {
+            dp[i][j] = dp[i-1][j];
+            int left = j-i;
+            if (left >= 0) {
+                (dp[i][j] += dp[i-1][left]) %= mod;
+            }
+        }
+    }
+    cout << dp[n-1][target];
+
 }
