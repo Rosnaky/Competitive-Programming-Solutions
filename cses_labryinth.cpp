@@ -36,28 +36,27 @@ int main() {
 
     queue<pair<vector<int>, string>> queue;
     queue.push({{start.first, start.second, 0}, ""});
+    seen[start.first][start.second] = true;
 
     while (!queue.empty()) {
         auto [curr, path] = queue.front();
         queue.pop();
         int row = curr[0], col = curr[1], dist = curr[2];
 
-        if (seen[row][col]) continue;
         if (row == end.first && col == end.second) {
             cout << "YES" << "\n";
             cout << path.size() << '\n';
             cout << path;
-            exit(0);
+            return 0;
         }
         
-        seen[row][col] = true;
         for (auto d : dir) {
             int nRow = d.second[0] + row, nCol = d.second[1] + col;
             string k = d.first;
 
-            if (nRow >= 0 && nRow < n && nCol >= 0 && nCol < m && graph[nRow][nCol] != 1) {
+            if (nRow >= 0 && nRow < n && nCol >= 0 && nCol < m && graph[nRow][nCol] != 1 && !seen[nRow][nCol]) {
                 k = path+k;
-
+                seen[nCol][nRow] = true;
                 queue.push({{nRow, nCol, dist+1}, k});
             }
         }
