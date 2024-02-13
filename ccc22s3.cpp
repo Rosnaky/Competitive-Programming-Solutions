@@ -6,68 +6,50 @@ using namespace std;
 typedef long long ll;
 
 ll n, m, k;
-vector<vector<int>> ans;
 
-ll paths(int a) {
-    ll s = 0;
-    for (int i = 1; i <= a; i++) {
-        s += i;
-    }
-    return s;
-}
-
-ll getGood(vector<ll>& curr) {
-    ll good = 0;
-    vector<ll> count(m+1);
-    ll left = 0, right = 1;
-    while (right < curr.size()) {
-        count[curr[right]]++;
-
-        if (count[curr[right]] > 1 || right == curr.size()-1) {
-            good+=paths(right-left+1);
-            left = right+1;
-            right = left;
-            count = vector<ll>(m+1);
-        }
-        
-        right++;
-
-        // cout << left << " " << right << endl;
-        
-        // while ((count[curr[left]] > 1 || count[curr[right]] > 1)) {
-        //     count[curr[left]]--;
-        //     left++;
-        // }
-
-    }
-
-    return good;
-}
-
-void backtrack(vector<ll>& curr) {
-    if (curr.size() == n && getGood(curr) == k) {
-        for (int c : curr) {
-            cout << c << " ";
-        }
-        exit(0);
-    }
-    // if (getGood(curr) > k) return;
-
-    for (int i = 1; i <= m; i++) {
-        curr.push_back(i);
-        backtrack(curr);
-        curr.pop_back();
-    }
-}
 
 int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-
     
     cin >> n >> m >> k;
 
-    vector<ll> curr;
-    backtrack(curr);
-    cout << -1;
+    vector<int> s(n, 0);
+    s[0] = 1;
+    vector<int> length(n, 1);
+    
+    ll curr = 1;
+
+    for (int i = 1; i < n; i++) {
+        if (k - curr == n-i) {
+            s[i] = s[i-1];
+            curr++;
+            continue;
+        }
+        
+        int temp = i-length[i-1];
+        // cout << temp << endl;
+        while (length[i-1]-length[temp]+curr+2 > k && temp != i) {
+            temp++;
+        }
+        
+        int next = 1;
+        while (next <= s[i-1] && next >= s[temp] && next != m+1) next++;
+        length[i] = length[i-1]-length[temp]+2;
+        curr += length[i];
+        if (next == m+1) {
+            length[i]--;
+            next = 1;
+        }
+        s[i] = next;
+    }
+    // cout << curr << endl;
+
+    if (curr != k){
+        cout << -1; return 0;
+    }
+
+    for (int i : s) cout << i << " ";
+    // cout << endl;
+    // for (int i : length) cout << i << " ";
 }
