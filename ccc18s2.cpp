@@ -30,9 +30,19 @@ int main() {
         return 0;
     }
 
+    if (grid[0][0] < grid[0][1] && grid[0][0] > grid[1][0]) {
+        for (int j = 0; j < n; j++) {
+            for (int i = n-1; i >= 0; i--) {
+                cout << grid[i][j] << " ";
+            }
+            cout << "\n";
+        }
+        return 0;
+    }
+
     if (grid[0][0] > grid[0][1] && grid[0][0] < grid[1][0]) {
-        for (int i = 0; i < n; i++) {
-            for (int j = n-1; j >= 0; j--) {
+        for (int j = n-1; j >= 0; j--) {
+            for (int i = 0; i < n; i++) {
                 cout << grid[i][j] << " ";
             }
             cout << endl;
