@@ -15,5 +15,7 @@ int main() {
     vector<int> arr(n);
     for (int &i : arr) cin >> i;
 
-    vector<int> dp(ceil(n/k));
+    vector<vector<int>> dp(n, vector<int>(k));
+
+    
 }
