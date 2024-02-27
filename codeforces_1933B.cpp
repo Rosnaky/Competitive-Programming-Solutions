@@ -9,18 +9,26 @@ void solve() {
 
     int n; cin >> n;
     int sum = 0;
-    bool good = false, good1 = false;
+    vector<int> arr(n);
     while (n--) {
-        int a; cin >> a;
-        sum += a;
-        if (a%2 == 1 && a%3 == 0) good = true;
-        if (a%2 == 0) good1 = true;
+        cin >> arr[n];
+        sum += arr[n];
     }
 
     if (sum%3 != 1) {cout << sum%3 << "\n"; return;}
-    if (good && (sum-1)%3 == 0) cout << "1\n";
-    else if (good1 && (sum-2)%3 == 0) cout << "1\n";
+
+    bool good = false;
+    for (int i = 0; i < arr.size(); i++) {
+        if ((sum-arr[i])%3 == 0) {
+            good = true;
+            break;
+        }
+    }
+
+    if (good) cout << "1\n";
     else cout << "2\n";
+
+
 }
 
 int main() {
