@@ -19,27 +19,25 @@ void solve() {
 
     int a, b, l; cin >> a >> b >> l;
 
-    int x = 1, c = a, d = a, y = 1;
-    while (c <= l) {
+    int x = 1, c = a, d = b, y = 1;
+    while (c < l) {
         x++;
         c*=a;
     }
-    while (d <= l) {
+    while (d < l) {
         y++;
         d*=b;
     } 
 
     set<int> ans;
+    for (int i = 0; i <= x; i++) {
+        for (int j = 0; j<= y; j++) {
+            double k = (double)l/pow(a, i)/pow(b, j);
 
-    if (a != b) {
-        for (int i = 0; i <= x; i++) {
-            for (int j = 0; j<= y; j++) {
-                double k = (double)l/pow(a, i)/pow(b, j);
-
-                if (k == floor(k)) ans.insert(k);
-            }
+            if (k == floor(k)) ans.insert(k);
         }
     }
+
     
     cout << ans.size() << "\n";
 }
