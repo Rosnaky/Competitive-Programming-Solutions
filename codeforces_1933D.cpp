@@ -1,6 +1,8 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <unordered_map>
+#include <set>
 
 using namespace std;
 
@@ -10,28 +12,23 @@ void solve() {
     int n; cin >> n;
     vector<int> arr(n);
     
-    for (int& i : arr) cin >> i;
+    unordered_map<int, int> count;
 
-    vector<bool> seen(n);
-    seen[0] = 1;
-
+    int mn = 1e9;
     for (int i = 0; i < n; i++) {
-        if (!seen[i]) continue;
-
-        for (int j = i+1; j < n; j++) {
-            if (arr[j]%arr[i] == 0) seen[j] = 1;
-        }
+        int a; cin >> a;
+        arr[i] = a;
+        count[a]++;
+        mn = min(mn, a);
     }
 
-    for (int i = 0; i < n; i++) {
-        if (!seen[i]) {
-            cout << "YES\n";
-            return;
+    if (count[mn] == 1) {cout << "yes\n"; return;}
+    else {
+        for (int i = 0; i < n; i++) {
+            if (arr[i]%mn != 0) {cout << "yes\n"; return;}
         }
     }
-
-    cout << "NO\n";
-
+    cout << "no\n";
 }
 
 
