@@ -33,18 +33,12 @@ int main() {
     }
 
     else {
-        int x = -1, y, z;
+        int x = -1, y = -1, z;
         for (int c = 0; c < a.size(); c++) {
             if (a[c] != b[c]) {
-                for (int i = 0; i < a.size(); i++) {
-                    if (a[c] == b[i] && b[i] != a[i]) {
-                        if (x == -1) {
-                            x = c, y = i;
-                        }
-                        else if (x != c) z = c;
-                    }
-                }
-                cout << char(c) << " " << char(x) << " " << char(y) << " " << char(z) << endl;
+                if (x == -1) x = c;
+                else if (y == -1) y = c;
+                else z = c;
             }
         }
 
@@ -60,7 +54,67 @@ int main() {
             return 0;
         }
 
-        cout << char(z) << " " << char(y) << "\n" << char(x);
+        temp = "";
+        for (char c : s) {
+            if (c == z) continue;
+            else if (c == y) temp+=char(x);
+            else temp+=c;
+        }
+
+        if (temp == t) {
+            cout << char(y) << " " << char(x) << "\n" << char(z); 
+            return 0;
+        }
+
+
+        temp = "";
+        for (char c : s) {
+            if (c == y) continue;
+            else if (c == x) temp+=char(z);
+            else temp+=c;
+        }
+
+        if (temp == t) {
+            cout << char(x) << " " << char(z) << "\n" << char(y); 
+            return 0;
+        }
+
+        temp = "";
+        for (char c : s) {
+            if (c == y) continue;
+            else if (c == z) temp+=char(x);
+            else temp+=c;
+        }
+
+        if (temp == t) {
+            cout << char(z) << " " << char(x) << "\n" << char(y); 
+            return 0;
+        }
+
+
+        temp = "";
+        for (char c : s) {
+            if (c == x) continue;
+            else if (c == z) temp+=char(y);
+            else temp+=c;
+        }
+
+        if (temp == t) {
+            cout << char(z) << " " << char(y) << "\n" << char(x); 
+            return 0;
+        }
+
+        temp = "";
+        for (char c : s) {
+            if (c == x) continue;
+            else if (c == y) temp+=char(z);
+            else temp+=c;
+        }
+
+        if (temp == t) {
+            cout << char(y) << " " << char(z) << "\n" << char(x); 
+            return 0;
+        }
         
     }
 }
