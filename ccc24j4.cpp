@@ -33,7 +33,5 @@ int main() {
         }
         else j++;
     }
-
     cout << char(sillya) << " " << char(sillyb) << "\n" << (quiet == -1 ? '-' : char(quiet));
-
 }
