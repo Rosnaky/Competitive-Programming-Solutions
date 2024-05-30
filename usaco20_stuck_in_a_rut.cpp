@@ -1,55 +1,66 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <map>
 
 using namespace std;
 
-bool isAlive(vector<bool>& alive) {
-    bool good = false;
-    for (int i = 0; i < alive.size() && !good; i++) {
-        good |= alive[i];
-    }
-
-    return good;
-}
 
 int main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
 
-    int n; cin >> n;
+    int n; cin>>n;
+	int order[n];
+	vector<pair<int, int>> east, north;
+	map<int, int> ans;
 
-    vector<vector<int>> start(n);
-    for (int i = 0; i < n; i++) {
-        char a; int b, c; cin >> a >> b >> c;
+	for(int i = 0; i < n; i++) {
+		string dir;
+		int x, y;
+		cin>>dir>>x>>y;
 
-        start[i] = {a == 'N' ? 0 : a == 'E' ? 1 : a == 'S' ? 2 : 3, b, c};
-    }
+		order[i] = x;
+		ans[x] = -1;
 
-    vector<vector<int>> curr = start;
-    vector<bool> alive(n, 1);
-    vector<int> eats(n, 1);
+		if(dir=="E") {
+			east.push_back(make_pair(x,y));
+		}
+		else{
+			north.push_back(make_pair(x,y));
+		}
+	}
+
+	sort(north.begin(), north.end());
+	sort(east.begin(), east.end(), [](const pair<int,int> &left, const pair<int,int> &right) {
+		return left.second < right.second;
+	});
+
+	for(auto i : east) {
+		for(auto j : north) {
+			if(ans[j.first]!=-1) {
+				continue;
+			}
+			if (i.first<j.first && i.second>j.second) {
+				int d1 = j.first-i.first;
+				int d2 = i.second-j.second;
+				if(d1>d2) {
+					ans[i.first]=d1;
+					break;
+				}
+				else if(d1<d2) {
+					ans[j.first]=d2;
+				}
+			}
+		}
+	}
+
+	for(int i : order) {
+		if(ans[i]==-1) {
+			cout<<"Infinity"<<endl;
+		}
+		else{cout<<ans[i]<<endl;}
+	}
+
     
-    while (isAlive(alive)) {
-
-        for (int i = 0; i < n; i++) {
-            vector<int> pos = curr[i];
-            if (pos[1] > 1e9 || pos[2] > 1e9) {
-                eats[i] = -1;
-                alive[i] = 0;
-                continue;
-            }
-            pos[1] += pos[0] == 0;
-            pos[1] -= pos[0] == 2;
-            pos[2] += pos[0] == 1;
-            pos[2] -= pos[0] == 3;
-
-            bool good = true;
-            for (int j = 0; j < n; j++) {
-                if (i == j) continue;
-            }
-
-        }
-
-    }
 
 }
