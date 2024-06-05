@@ -57,7 +57,17 @@
     "xmemory": "cpp",
     "xstddef": "cpp",
     "xtr1common": "cpp",
-    "bitset": "cpp"
+    "bitset": "cpp",
+    "array": "cpp",
+    "*.tcc": "cpp",
+    "cwctype": "cpp",
+    "functional": "cpp",
+    "memory_resource": "cpp",
+    "numeric": "cpp",
+    "optional": "cpp",
+    "random": "cpp",
+    "string_view": "cpp",
+    "numbers": "cpp"
   },
   "editor.cursorStyle": "line-thin",
   "C_Cpp.errorSquiggles": "enabled",
