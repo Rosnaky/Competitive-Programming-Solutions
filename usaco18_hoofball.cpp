@@ -39,19 +39,26 @@ int main() {
         }
     }
 
+    int total = 0, ans = 0;
 
-    sort(reaches.begin(), reaches.end(), [](set<int>& a, set<int>& b) {
-        return a.size() < b.size();
-    });
-
-    vector<bool> needed(n, 0);
-
-    for (int a = 0; a < n; a++) {
-        cout << cows[a] << ": ";
-        for (auto i : reaches[a]) {
-            cout << cows[i] << " ";
+    while (total < n && ans < n) {
+        int maxi = 0, temp = 0;
+        for (int i = 0; i < n; i++) {
+            if (reaches[i].size() > temp) {
+                maxi = i, temp = reaches[i].size();
+            }
         }
-        cout << "\n";
+
+        total += temp, ans++;
+
+        while (reaches[maxi].size()) {
+            int a = *reaches[maxi].begin();
+            for (set<int>& s : reaches) {
+                if (s.count(a)) s.erase(a);
+            }
+        }
     }
+
+    cout << ans;
 
 }
