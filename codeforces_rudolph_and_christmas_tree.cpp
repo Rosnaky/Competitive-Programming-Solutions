@@ -6,23 +6,25 @@
 using namespace std;
 
 void solve() {
+
+    // freopen("input.in", "r", stdin);
     double n, b, h; cin >> n >> b >> h;
 
-    double ans = 0;
+    vector<int> nums(n);
+    for (int &i : nums) cin >> i;
 
-    double prev = -1e9;
-    for (int i = 0; i < n; i++) {
-        double y; cin >> y;
+    double area = b*h/2.0;
+    double ans = area*n;
 
-        ans += b*h/2;
-
-        if (prev != 1e9 && y-prev < h) {
-            ans -= (h-y+prev)*((b/h)*(y-prev))/2;
+    for (int i = 0; i < n-1; i++) {
+        int overlap = nums[i] + h - nums[i+1];
+        if (overlap > 0) {
+            double ratio = (double) overlap / h;
+            ans -= area * ratio * ratio;
         }
-
-        prev = y;
     }
-    cout << ans << "\n";
+
+    cout << ans << endl;
 }
 
 
