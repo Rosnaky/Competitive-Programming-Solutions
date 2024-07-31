@@ -1,10 +1,17 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <unordered_map>
 
 using namespace std;
-typedef long long ll;
 
+int encrypt[256];
+
+unordered_map<char, char> loses = {
+    {'S', 'H'},
+    {'H', 'P'},
+    {'P', 'S'}
+};
 
 int main() {
     ios_base::sync_with_stdio(0);
@@ -13,31 +20,32 @@ int main() {
     freopen("hps.in", "r", stdin);
     freopen("hps.out", "w", stdout);
 
-    int n; cin >> n;
+    int n, k; cin >> n >> k;
+    vector<char> fj(n);
 
-    vector<ll> hoof(n+1);
-    vector<ll> paper(n+1);
-    vector<ll> scissors(n+1);
+    for (char& c : fj) cin >> c;
 
-    for (int i = 1; i <= n; i++) {
-        char curr; cin >> curr;
-        if (curr == 'P') paper[i] = paper[i-1]+1, hoof[i] = hoof[i-1], scissors[i] = scissors[i-1];
-        else if (curr == 'H') paper[i] = paper[i-1], hoof[i] = hoof[i-1]+1, scissors[i] = scissors[i-1];
-        else if (curr == 'S') paper[i] = paper[i-1], hoof[i] = hoof[i-1], scissors[i] = scissors[i-1]+1;
-    }
+    encrypt['H'] = 0;
+    encrypt['P'] = 1;
+    encrypt['S'] = 2;
 
+    vector<vector<vector<int>>> dp(n+1, vector<vector<int>>(k+1, vector<int>(3)));
     int ans = 0;
-
-    
-    
     for (int i = 1; i <= n; i++) {
-        int maximum = max(paper[i], max(hoof[i], scissors[i]));
-        int largeMax = max((paper[n]-paper[i]), max((hoof[n]-hoof[i]), (scissors[n]-scissors[i])));
+        for (int j = 0; j <= k; j++) {
+            for (int l = 0; l < 3; l++) {
+                dp[i][j][l] = dp[i-1][j][l];
+                if (j) {
+                    dp[i][j][l] = max(dp[i][j][l], dp[i-1][j-1][(l+1)%3]);
+                    dp[i][j][l] = max(dp[i][j][l], dp[i-1][j-1][(l+2)%3]);
+                }
+                dp[i][j][l] += (encrypt[loses[fj[i]]] == l);
 
-        ans = max(ans, largeMax+maximum);
+                ans = max(ans, dp[i][j][l]);
+            }
+        }
     }
-
-    
 
     cout << ans;
+    
 }

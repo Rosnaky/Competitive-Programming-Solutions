@@ -9,15 +9,21 @@ int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
 
-    int n, target;
+    int n, k;
 
-    cin >> n >> target;
+    cin >> n >> k;
 
-    vector<int> arr(n);
+    vector<int> dp(500001);
+    int mx = 0, cnt = 0;
+    for (int i = 0; i < n; i++) {
+        int c; cin >> c;
 
-    for (int& a : arr) {
-        cin >> a;
+        if (c == k) cnt++;
+        else dp[c] = max(dp[c], cnt) + 1;
+        mx = max(mx, dp[c]-cnt);
     }
+
+    cout << mx + cnt << endl;
 
     
 }
