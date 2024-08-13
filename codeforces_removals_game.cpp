@@ -2,36 +2,42 @@
 #include <iostream>
 #include <algorithm>
 #include <unordered_map>
+#include <queue>
 
 using namespace std;
 
-bool equals(vector<int>& a , vector<int>& b) {
-    unordered_map<int, int> freq;
-    for (int i : a) freq[i]++;
-    for (int i : b) freq[i]--;
-
-    for (auto [k, v] : freq) {
-        if (v != 0) return false;
-    }
-
-    return true;
-}
-
 void solve() {
     int n; cin >> n;
-
     vector<int> a(n), b(n);
 
     for (int &i : a) cin >> i;
     for (int &i : b) cin >> i;
-    
-    if (n <= 2 || equals(a, b)) {
+
+    bool good = 1;
+    for (int i = 0; i < n; i++) {
+        if (a[i] != b[i]) {
+            good = 0;
+            break;
+        }
+    }
+
+    if (!good) {
+        good = 1;
+        for (int i = 0; i < n; i++) {
+            if (a[i] != b[n-i-1]) {
+                good = 0;
+                break;
+            }
+        }
+    }
+
+    if (good) {
         cout << "Bob\n";
         return;
     }
 
     cout << "Alice\n";
-
+    
 }
 
 int main() {
