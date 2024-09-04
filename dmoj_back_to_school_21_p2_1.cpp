@@ -17,20 +17,22 @@ int main() {
     for (int& i : a) cin >> i;
     for (int& i : b) cin >> i;
 
-    vector<pair<ll, int>> ans(m);
+    vector<ll> ans(m);
+    vector<int> remaining = b;
+
     for (int i = 0; i < m; i++) {
-        ans[i] = {0, i};
+
+        ll curr = m+i-1;
+        for (int j = 0; j < n; j++) {
+            curr += remaining[j];
+            if (remaining[j] && curr >= m) {
+                curr -= m;
+                ans[i] += a[j];
+                remaining[j]--;
+            }
+        }
+
     }
 
-    for (int i = 0; i < n; i++) {
-        sort(ans.begin(), ans.end());
-
-    }
-
-    vector<ll> final(m);
-    for (int i = 0; i < m; i++) {
-        final[ans[i].second] = ans[i].first;
-    }
-
-    for (ll &i : final) cout << i << " ";
+    for (ll &i : ans) cout << i << ' ';
 }
