@@ -59,15 +59,16 @@ int main() {
         for (int r = 0; r < k; r++) {
             for (int i = 0; i < n; i++) {
                 if (ans.find(i) == ans.end()) continue;
-                if (r) arr[i][r] |= arr[i][r-1];
-                if (arr[i][r] > regionLimits[r][0] && arr[i][r] < regionLimits[r][1]) {
+                if (i) arr[i][r] |= arr[i-1][r];
+                if (arr[i][r] <= regionLimits[r][0] || arr[i][r] >= regionLimits[r][1]) {
+                    // cout << i << " " << r << endl;
                     ans.erase(i);
                     continue;
                 }
             }
         }
 
-        if (ans.size()) cout << *ans.begin() << '\n';
+        if (ans.size()) cout << *ans.begin() + 1 << '\n';
         else cout << -1 << '\n';
 
     }
