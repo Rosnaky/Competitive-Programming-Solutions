@@ -20,10 +20,31 @@ void solve() {
     // a[2] -= target-a[0];
     // a[n-3] -= target-a[n-1];
     
-    for (int i = 1; i < n-2; i++) {
-        int ex = target-a[i-1];
-        a[i] -= ex;
+    vector<int> cp = a;
+    bool good = 1;
+    for (int i = n-1; i > 1; i--) {
+        cp[i-2] -= target-cp[i];
+        cp[i] = target;
+        if (cp[i-2] < 0) {
+            good = 0;
+            break;
+        }
+    }
+    if (good) {
+        for (int i = 0; i < n; i++) {     
 
+            if (cp[i] != target) {
+                good = 0;
+            }
+        }
+        if (good) {
+            cout << "YES\n";
+            return;
+        }
+    }
+
+    for (int i = 0; i < n-2; i++) {
+        a[i+2] -= target-a[i];
         a[i] = target;
         if (a[i+2] < 0) {
             cout << "NO\n"; return;
