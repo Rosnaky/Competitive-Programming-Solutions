@@ -24,7 +24,8 @@
             "defines": [],
             "cStandard": "c17",
             "intelliSenseMode": "linux-gcc-x64",
-            "compilerPath": "/usr/bin/g++"
+            "compilerPath": "/usr/bin/g++",
+            "cppStandard": "c++26"
         }
     ],
     "version": 4
